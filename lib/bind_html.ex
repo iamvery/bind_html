@@ -1,0 +1,2 @@
+defmodule BindHtml do
+end
