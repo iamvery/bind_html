@@ -1,20 +1,38 @@
 # BindHtml
 
-**TODO: Add description**
+Bind data to HTML views.
 
-## Installation
+## Usage
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+```elixir
+import BindHtml
+view = """
+<div data-scope="post">
+  <p data-prop="body">Example content.</p>
+  <ul>
+    <li data-prop="authors">Author</li>
+  </ul>
+</div>
+"""
+data = [
+  %{"id" => 1, "body" => "First!", "authors" => ["Jay", "Les"]},
+  %{"id" => 2, "body" => "Second!", "authors" => ["Sue", "Joe"]},
+]
 
-  1. Add bind_html to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:bind_html, "~> 0.0.1"}]
-        end
-
-  2. Ensure bind_html is started before your application:
-
-        def application do
-          [applications: [:bind_html]]
-        end
-
+bind(view, data, :post)
+# =>
+# <div data-scope="post" data-id="1">
+#   <p data-prop="body">First!</p>
+#   <ul>
+#     <li data-prop="authors">Jay</li>
+#     <li data-prop="authors">Les</li>
+#   </ul>
+# </div>
+# <div data-scope="post" data-id="2">
+#   <p data-prop="body">Second!</p>
+#   <ul>
+#     <li data-prop="authors">Sue</li>
+#     <li data-prop="authors">Joe</li>
+#   </ul>
+# </div>
+```
